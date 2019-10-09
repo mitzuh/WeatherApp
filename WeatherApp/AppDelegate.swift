@@ -7,16 +7,25 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
+    var locationManager : CLLocationManager?
+    
+    var weatherView: WeatherViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let weatherView = WeatherViewController(nibName: "WeatherView", bundle: nil)
-        weatherView.title = "Current Weather"
+        self.locationManager = CLLocationManager()
+        self.locationManager!.delegate = self
+        locationManager!.requestAlwaysAuthorization()
+        self.locationManager!.startUpdatingLocation()
+        
+        weatherView = WeatherViewController(nibName: "WeatherView", bundle: nil)
+        weatherView!.title = "Current Weather"
         
         let forecastView = ForecastViewController(nibName: "ForecastView", bundle: nil)
         forecastView.title = "5 Days Forecast"
@@ -25,11 +34,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         cityView.title = "City"
         
         let tabs = UITabBarController()
-        tabs.viewControllers = [weatherView, forecastView, cityView]
+        tabs.viewControllers = [weatherView!, forecastView, cityView]
         
         self.window?.rootViewController = tabs
         
         return true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let lon = locationManager?.location?.coordinate.longitude
+        let lat = locationManager?.location?.coordinate.latitude
+        
+        self.locationManager!.stopUpdatingLocation()
+        fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(lat!)&lon=\(lon!)&APPID=6cc50f5db6907d1dd672bac2c944928c&&units=metric")
+    }
+    
+    func fetchUrl(url : String) {
+        let config = URLSessionConfiguration.default
+        
+        let session = URLSession(configuration: config)
+        
+        let url : URL? = URL(string: url)
+        
+        let task = session.dataTask(with: url!, completionHandler: doneFetching);
+        
+        // Starts the task, spawns a new thread and calls the callback function
+        task.resume();
+    }
+    
+    func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
+        //let resstr = String(data: data!, encoding: String.Encoding.utf8)
+        
+        do {
+            //let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any]
+            //print(json)
+            
+            let weatherInfoModel = try! JSONDecoder().decode(WeatherInfoModel.self, from: data!)
+            weatherView?.weatherInfoModel = weatherInfoModel
+            weatherView?.updateCurrentWeather()
+            
+        }
+        catch {
+            
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

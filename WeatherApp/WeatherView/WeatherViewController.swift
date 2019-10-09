@@ -14,16 +14,39 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var temperature: UILabel!
+    @IBOutlet weak var desc: UILabel!
     
-    // TEST
-    var dataController: DataController?
+    var weatherInfoModel: WeatherInfoModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        dataController = DataController()
-        dataController?.fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=6cc50f5db6907d1dd672bac2c944928c")
     }
     
+    func updateCurrentWeather(){
+        DispatchQueue.main.async {
+            self.cityName.text = self.weatherInfoModel?.name
+            self.temperature.text = String(self.weatherInfoModel!.main.temp) + " °C"
+            self.desc.text = self.weatherInfoModel?.weather[0].description
+            
+            print("Begin of code")
+            let iconcode = self.weatherInfoModel?.weather[0].icon
+            let url = URL(string: "https://api.openweathermap.org//img/w/\(iconcode).png")!
+            self.downloadImage(from: url)
+        }
+    }
     
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    func downloadImage(from url: URL) {
+        print("Download Started")
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            print(response?.suggestedFilename ?? url.lastPathComponent)
+            print("Download Finished")
+            DispatchQueue.main.async() {
+                self.imageView.image = UIImage(data: data)
+            }
+        }
+    }
 }

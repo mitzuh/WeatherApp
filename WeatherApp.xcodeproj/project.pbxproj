@@ -20,7 +20,7 @@
 		5D5BBC45234DB17800F64808 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5BBC44234DB17800F64808 /* ForecastViewController.swift */; };
 		5D5BBC48234DB1C200F64808 /* CityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D5BBC47234DB1C200F64808 /* CityView.xib */; };
 		5D5BBC4A234DB1D700F64808 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5BBC49234DB1D700F64808 /* CityViewController.swift */; };
-		5D5BBC4D234DC06300F64808 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5BBC4C234DC06300F64808 /* DataController.swift */; };
+		5D5BBC4F234DEEE700F64808 /* WeatherInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5BBC4E234DEEE700F64808 /* WeatherInfoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,7 @@
 		5D5BBC44234DB17800F64808 /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		5D5BBC47234DB1C200F64808 /* CityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityView.xib; sourceTree = "<group>"; };
 		5D5BBC49234DB1D700F64808 /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
-		5D5BBC4C234DC06300F64808 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		5D5BBC4E234DEEE700F64808 /* WeatherInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				5D5BBC0F234DB05600F64808 /* AppDelegate.swift */,
-				5D5BBC4C234DC06300F64808 /* DataController.swift */,
+				5D5BBC4E234DEEE700F64808 /* WeatherInfoModel.swift */,
 				5D5BBC41234DB12300F64808 /* WeatherView */,
 				5D5BBC46234DB19300F64808 /* ForecastView */,
 				5D5BBC4B234DB1DB00F64808 /* CityView */,
@@ -304,8 +304,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D5BBC4F234DEEE700F64808 /* WeatherInfoModel.swift in Sources */,
 				5D5BBC12234DB05600F64808 /* ViewController.swift in Sources */,
-				5D5BBC4D234DC06300F64808 /* DataController.swift in Sources */,
 				5D5BBC4A234DB1D700F64808 /* CityViewController.swift in Sources */,
 				5D5BBC45234DB17800F64808 /* ForecastViewController.swift in Sources */,
 				5D5BBC40234DB11800F64808 /* WeatherViewController.swift in Sources */,
