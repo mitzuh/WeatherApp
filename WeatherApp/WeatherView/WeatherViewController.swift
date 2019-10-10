@@ -22,28 +22,28 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    // Update labels and image
     func updateCurrentWeather(){
         DispatchQueue.main.async {
             self.cityName.text = self.weatherInfoModel?.name
-            self.temperature.text = String(self.weatherInfoModel!.main.temp) + " °C"
+            self.temperature.text = String(self.weatherInfoModel!.main.temp) + "°C"
             self.desc.text = self.weatherInfoModel?.weather[0].description
             
-            print("Begin of code")
             let iconcode = self.weatherInfoModel?.weather[0].icon
-            let url = URL(string: "https://api.openweathermap.org//img/w/\(iconcode).png")!
+            let url = URL(string: "https://api.openweathermap.org//img/w/\(iconcode!).png")!
             self.downloadImage(from: url)
         }
     }
     
+    // Get data from url
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
+    
+    // Load and update image
     func downloadImage(from url: URL) {
-        print("Download Started")
         getData(from: url) { data, response, error in
             guard let data = data, error == nil else { return }
-            print(response?.suggestedFilename ?? url.lastPathComponent)
-            print("Download Finished")
             DispatchQueue.main.async() {
                 self.imageView.image = UIImage(data: data)
             }

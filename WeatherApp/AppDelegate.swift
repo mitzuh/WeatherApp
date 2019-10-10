@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
+    // Get user location using GPS
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let lon = locationManager?.location?.coordinate.longitude
         let lat = locationManager?.location?.coordinate.latitude
@@ -49,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(lat!)&lon=\(lon!)&APPID=6cc50f5db6907d1dd672bac2c944928c&&units=metric")
     }
     
+    // Fetch passed url
     func fetchUrl(url : String) {
         let config = URLSessionConfiguration.default
         
@@ -62,21 +64,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         task.resume();
     }
     
+    // Update desired data after fetching is complete
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
-        //let resstr = String(data: data!, encoding: String.Encoding.utf8)
-        
-        do {
-            //let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any]
-            //print(json)
-            
-            let weatherInfoModel = try! JSONDecoder().decode(WeatherInfoModel.self, from: data!)
-            weatherView?.weatherInfoModel = weatherInfoModel
-            weatherView?.updateCurrentWeather()
-            
-        }
-        catch {
-            
-        }
+        let weatherInfoModel = try! JSONDecoder().decode(WeatherInfoModel.self, from: data!)
+        weatherView?.weatherInfoModel = weatherInfoModel
+        weatherView?.updateCurrentWeather()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
