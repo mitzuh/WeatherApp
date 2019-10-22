@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ForecastViewController" customModule="WeatherApp" customModuleProvider="target">
             <connections>
+                <outlet property="forecastTable" destination="UuB-Ee-Xpx" id="Agn-nK-B7P"/>
                 <outlet property="view" destination="iN0-l3-epB" id="0XX-B9-5YF"/>
             </connections>
         </placeholder>

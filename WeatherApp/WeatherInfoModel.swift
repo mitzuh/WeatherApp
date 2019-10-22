@@ -14,6 +14,16 @@ struct WeatherInfoModel: Codable {
     var main: Main
 }
 
+struct ForecastInfoModel: Codable {
+    var list: [List]
+}
+
+struct List: Codable {
+    var main: Main
+    var weather: [Weather]
+    var dt_txt: String
+}
+
 struct Weather: Codable {
     var description: String
     var icon: String
