@@ -21,6 +21,7 @@
 		5D5BBC48234DB1C200F64808 /* CityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D5BBC47234DB1C200F64808 /* CityView.xib */; };
 		5D5BBC4A234DB1D700F64808 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5BBC49234DB1D700F64808 /* CityViewController.swift */; };
 		5D5BBC4F234DEEE700F64808 /* WeatherInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5BBC4E234DEEE700F64808 /* WeatherInfoModel.swift */; };
+		5DEC95F8236062820028225E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEC95F7236062820028225E /* WeatherData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		5D5BBC47234DB1C200F64808 /* CityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityView.xib; sourceTree = "<group>"; };
 		5D5BBC49234DB1D700F64808 /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		5D5BBC4E234DEEE700F64808 /* WeatherInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoModel.swift; sourceTree = "<group>"; };
+		5DEC95F7236062820028225E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			children = (
 				5D5BBC0F234DB05600F64808 /* AppDelegate.swift */,
 				5D5BBC4E234DEEE700F64808 /* WeatherInfoModel.swift */,
+				5DEC95F7236062820028225E /* WeatherData.swift */,
 				5D5BBC41234DB12300F64808 /* WeatherView */,
 				5D5BBC46234DB19300F64808 /* ForecastView */,
 				5D5BBC4B234DB1DB00F64808 /* CityView */,
@@ -306,6 +309,7 @@
 			files = (
 				5D5BBC4F234DEEE700F64808 /* WeatherInfoModel.swift in Sources */,
 				5D5BBC12234DB05600F64808 /* ViewController.swift in Sources */,
+				5DEC95F8236062820028225E /* WeatherData.swift in Sources */,
 				5D5BBC4A234DB1D700F64808 /* CityViewController.swift in Sources */,
 				5D5BBC45234DB17800F64808 /* ForecastViewController.swift in Sources */,
 				5D5BBC40234DB11800F64808 /* WeatherViewController.swift in Sources */,

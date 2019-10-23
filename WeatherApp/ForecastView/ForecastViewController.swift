@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 import CoreLocation
+import CoreGraphics
 
 class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var forecastTable: UITableView!
     var locationManager : CLLocationManager?
     
+    var weatherData: WeatherData = WeatherData()
+    
     var forecasts: [List] = [List]()
+    var previousCity: String?
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -23,6 +27,7 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Location manager
         self.locationManager = CLLocationManager()
         self.locationManager!.delegate = self
         locationManager!.requestAlwaysAuthorization()
@@ -39,6 +44,19 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
         forecastTable.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if (self.weatherData.selectedCity != nil) {
+            if (self.previousCity != self.weatherData.selectedCity) {
+                updateCity()
+            }
+            self.previousCity = self.weatherData.selectedCity
+        }
+    }
+    
+    func updateCity() {
+        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=\(self.weatherData.selectedCity!)&APPID=6cc50f5db6907d1dd672bac2c944928c&&units=metric")
+    }
+    
     // Return number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.forecasts.count
@@ -51,7 +69,22 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
         let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
         
         // Set text to tableview cells
-        cell.textLabel?.text = self.forecasts[indexPath.row].weather.description + String(self.forecasts[indexPath.row].main.temp)
+        let upperText = self.forecasts[indexPath.row].weather[0].description + " " + String(self.forecasts[indexPath.row].main.temp) + "°C"
+        let lowerText = self.forecasts[indexPath.row].dt_txt
+        
+        // Tableview cell image
+        let iconcode = self.forecasts[indexPath.row].weather[0].icon
+        let iconUrl = URL(string: "https://api.openweathermap.org//img/w/\(iconcode).png")!
+        
+        self.getData(from: iconUrl) { data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() {
+                cell.imageView?.image = UIImage(data: data)
+            }
+        }
+        
+        cell.textLabel?.numberOfLines = 2
+        cell.textLabel?.text = upperText + "\n" + lowerText
         
         return cell
     }
@@ -61,13 +94,18 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
         print(self.forecasts[indexPath.row])
     }
     
+    // Get data from url
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
     // Get user location using GPS
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let lon = locationManager?.location?.coordinate.longitude
         let lat = locationManager?.location?.coordinate.latitude
         
         self.locationManager!.stopUpdatingLocation()
-        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(lat!)&lon=\(lon!)&APPID=6cc50f5db6907d1dd672bac2c944928c&&units=metric")
+        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(lat!)&lon=\(lon!)&APPID=6cc50f5db6907d1dd672bac2c944928c&units=metric")
     }
     
     // Fetch passed url
@@ -87,12 +125,13 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
     // Update desired data after fetching is complete
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
         let forecastInfoModel = try! JSONDecoder().decode(ForecastInfoModel.self, from: data!)
-        print(forecastInfoModel)
         let dataList = forecastInfoModel.list
-        
+        forecasts = [List]()
         for data in dataList {
             forecasts.append(data)
         }
-        self.forecastTable.reloadData()
+        DispatchQueue.main.async {
+            self.forecastTable.reloadData()
+        }
     }
 }

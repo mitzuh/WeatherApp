@@ -14,6 +14,8 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var cityTable: UITableView!
     
+    var weatherData: WeatherData = WeatherData()
+    
     var locationManager: CLLocationManager?
     var clGeocoder: CLGeocoder?
 
@@ -58,16 +60,19 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    // Print tapped row and check is use GPS was clicked
+    // Check if GPS was clicked, and switch city if different city was clicked.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(self.cities[indexPath.row])
-        
         let i = Int(indexPath.row)
         if(i == 0){
             locationManager = CLLocationManager()
             self.locationManager!.delegate = self
             locationManager!.requestAlwaysAuthorization()
             self.locationManager!.startUpdatingLocation()
+        }
+        else {
+            let city = self.cities[indexPath.row]
+            let trimmedCity = city.replacingOccurrences(of: " ", with: "+")
+            self.weatherData.selectedCity = trimmedCity
         }
     }
     
