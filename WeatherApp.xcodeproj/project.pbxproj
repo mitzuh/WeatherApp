@@ -22,7 +22,7 @@
 		5D5BBC4A234DB1D700F64808 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5BBC49234DB1D700F64808 /* CityViewController.swift */; };
 		5D5BBC4F234DEEE700F64808 /* WeatherInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5BBC4E234DEEE700F64808 /* WeatherInfoModel.swift */; };
 		5DEC95F8236062820028225E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEC95F7236062820028225E /* WeatherData.swift */; };
-		5DF5C2042362F589002EF2DA /* ikon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DF5C2032362F589002EF2DA /* ikon.png */; };
+		5DF5C22A2362FB75002EF2DA /* ikon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DF5C2292362FB75002EF2DA /* ikon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,7 @@
 		5D5BBC49234DB1D700F64808 /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		5D5BBC4E234DEEE700F64808 /* WeatherInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoModel.swift; sourceTree = "<group>"; };
 		5DEC95F7236062820028225E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
-		5DF5C2032362F589002EF2DA /* ikon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ikon.png; path = ../../ikon.png; sourceTree = "<group>"; };
+		5DF5C2292362FB75002EF2DA /* ikon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ikon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +126,7 @@
 				5D5BBC16234DB05800F64808 /* Assets.xcassets */,
 				5D5BBC18234DB05800F64808 /* LaunchScreen.storyboard */,
 				5D5BBC1B234DB05800F64808 /* Info.plist */,
-				5DF5C2032362F589002EF2DA /* ikon.png */,
+				5DF5C2292362FB75002EF2DA /* ikon.png */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -283,7 +283,7 @@
 				5D5BBC1A234DB05800F64808 /* LaunchScreen.storyboard in Resources */,
 				5D5BBC17234DB05800F64808 /* Assets.xcassets in Resources */,
 				5D5BBC15234DB05600F64808 /* Main.storyboard in Resources */,
-				5DF5C2042362F589002EF2DA /* ikon.png in Resources */,
+				5DF5C22A2362FB75002EF2DA /* ikon.png in Resources */,
 				5D5BBC3E234DB0EB00F64808 /* WeatherView.xib in Resources */,
 				5D5BBC43234DB14400F64808 /* ForecastView.xib in Resources */,
 				5D5BBC48234DB1C200F64808 /* CityView.xib in Resources */,
