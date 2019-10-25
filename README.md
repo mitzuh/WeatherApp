@@ -12,7 +12,9 @@
 Add more general information about project. What the purpose of the project is? Motivation?
 
 ## Screenshots
-![Current Weather](http://i.imgur.com/a/tXQGPV4.jpg)
+![Current Weather](https://i.imgur.com/A7D5K1Y.png)
+![Forecast](https://i.imgur.com/lMT2QGy.png)
+![Cities](https://i.imgur.com/VQV0tkA.png)
 
 ## Technologies
 * Xcode - version 10
