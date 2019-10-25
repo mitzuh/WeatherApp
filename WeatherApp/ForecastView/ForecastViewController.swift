@@ -19,6 +19,7 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
     var weatherData: WeatherData = WeatherData()
     
     var forecasts: [List] = [List]()
+    var iconList: [UIImage] = [UIImage]()
     var previousCity: String?
     
     // cell reuse id (cells that scroll out of view can be reused)
@@ -26,7 +27,6 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Location manager
         self.locationManager = CLLocationManager()
         self.locationManager!.delegate = self
@@ -64,7 +64,6 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
     
     // Create tableview cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         // Create a new cell if needed or reuse an old one
         let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
         
@@ -73,13 +72,9 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
         let lowerText = self.forecasts[indexPath.row].dt_txt
         
         // Tableview cell image
-        let iconcode = self.forecasts[indexPath.row].weather[0].icon
-        let iconUrl = URL(string: "https://api.openweathermap.org//img/w/\(iconcode).png")!
-        
-        self.getData(from: iconUrl) { data, response, error in
-            guard let data = data, error == nil else { return }
+        if (cell.imageView?.image == nil) {
             DispatchQueue.main.async() {
-                cell.imageView?.image = UIImage(data: data)
+                cell.imageView?.image = self.iconList[indexPath.row]
             }
         }
         
@@ -129,6 +124,14 @@ class ForecastViewController: UIViewController, CLLocationManagerDelegate, UITab
         forecasts = [List]()
         for data in dataList {
             forecasts.append(data)
+            
+            let iconcode = data.weather[0].icon
+            let iconUrl = URL(string: "https://api.openweathermap.org//img/w/\(iconcode).png")!
+            
+            self.getData(from: iconUrl) { data, response, error in
+                guard let data = data, error == nil else { return }
+                self.iconList.append(UIImage(data: data)!)
+            }
         }
         DispatchQueue.main.async {
             self.forecastTable.reloadData()
